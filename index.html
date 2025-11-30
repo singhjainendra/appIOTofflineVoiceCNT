@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #1e0533 0%, #110b29 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+            --primary-glow: #00d4ff;
+            --active-color: #00d4ff;
+            --danger-color: #ff0055;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h1 {
+            font-weight: 600;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--primary-glow);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-glow);
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px var(--primary-glow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+            70% { opacity: 0.7; box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+            100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        /* Glass Cards */
+        .device-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: var(--glass-highlight);
+        }
+
+        /* Active State Glow */
+        .device-card.active {
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .device-card.active .icon-box {
+            background: var(--active-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--active-color);
+        }
+
+        /* Icon Styling */
+        .icon-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            color: var(--text-muted);
+            transition: all 0.4s ease;
+        }
+
+        .text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .device-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .device-status {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Custom Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--active-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <header>
+        <h1>CONTROL CENTER</h1>
+        <div class="status-pill">
+            <div class="pulse-dot"></div>
+            <span>Connected to Cloud</span>
+        </div>
+    </header>
+
+    <div class="grid">
+        <div class="device-card" id="card-door">
+            <div class="icon-info">
+                <div class="icon-box">
+                    <i class="fa-solid fa-door-open"></i>
+                </div>
+                <div class="text-group">
+                    <span class="device-name">Main Door</span>
+                    <span id="status-door" class="device-status">Checking...</span>
+                </div>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="toggle-door" onchange="toggleDevice('door')">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="device-card" id="card-light">
+            <div class="icon-info">
+                <div class="icon-box">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <div class="text-group">
+                    <span class="device-name">Living Room</span>
+                    <span id="status-light" class="device-status">Checking...</span>
+                </div>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="toggle-light" onchange="toggleDevice('light')">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="device-card" id="card-fan">
+            <div class="icon-info">
+                <div class="icon-box">
+                    <i class="fa-solid fa-fan"></i>
+                </div>
+                <div class="text-group">
+                    <span class="device-name">Exhaust Fan</span>
+                    <span id="status-fan" class="device-status">Checking...</span>
+                </div>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="toggle-fan" onchange="toggleDevice('fan')">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // ⚙️ CONFIGURATION
+    // ==========================================
+    const AIO_USERNAME = "singhjay98";
+    const AIO_KEY      = "aio_aXOx41eeFKeUjASUcH07CSvgfyo1"; 
+    // ==========================================
+
+    const feeds = ['door', 'light', 'fan'];
+
+    // 1. Initialize
+    async function init() {
+        console.log("Initializing Dashboard...");
+        for (let feed of feeds) {
+            await getFeedValue(feed);
+        }
+        setInterval(() => {
+            feeds.forEach(feed => getFeedValue(feed));
+        }, 3000);
+    }
+
+    // 2. Fetch Data
+    async function getFeedValue(feedKey) {
+        const url = `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${feedKey}/data/last`;
+
+        try {
+            const response = await fetch(url, {
+                headers: { 'X-AIO-Key': AIO_KEY }
+            });
+            if (!response.ok) throw new Error('Network error');
+            const data = await response.json();
+            updateUI(feedKey, data.value);
+        } catch (error) {
+            console.error(`Error fetching ${feedKey}:`, error);
+        }
+    }
+
+    // 3. Send Data
+    async function toggleDevice(feedKey) {
+        const checkbox = document.getElementById(`toggle-${feedKey}`);
+        const newValue = checkbox.checked ? "1" : "0";
+
+        // Optimistic UI Update
+        updateUI(feedKey, newValue);
+
+        const url = `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${feedKey}/data`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-AIO-Key': AIO_KEY
+                },
+                body: JSON.stringify({ value: newValue })
+            });
+
+            if (!response.ok) {
+                checkbox.checked = !checkbox.checked; // Revert on fail
+                updateUI(feedKey, checkbox.checked ? "1" : "0");
+                alert("Connection failed");
+            }
+        } catch (error) {
+            checkbox.checked = !checkbox.checked;
+            updateUI(feedKey, checkbox.checked ? "1" : "0");
+        }
+    }
+
+    // 4. Update UI (Visuals)
+    function updateUI(feedKey, value) {
+        const checkbox = document.getElementById(`toggle-${feedKey}`);
+        const statusText = document.getElementById(`status-${feedKey}`);
+        const card = document.getElementById(`card-${feedKey}`);
+        
+        const isOn = (value == "1");
+
+        // Sync Checkbox
+        if (checkbox.checked !== isOn) {
+            checkbox.checked = isOn;
+        }
+
+        // Update Text & Classes
+        if (isOn) {
+            statusText.textContent = "Active";
+            statusText.style.color = "#00d4ff";
+            card.classList.add('active');
+            
+            // Add rotation to fan icon if it's the fan
+            if(feedKey === 'fan') {
+                 card.querySelector('.fa-fan').classList.add('fa-spin');
+            }
+        } else {
+            statusText.textContent = "Inactive";
+            statusText.style.color = "#a0a0a0";
+            card.classList.remove('active');
+            
+            // Remove rotation
+            if(feedKey === 'fan') {
+                 card.querySelector('.fa-fan').classList.remove('fa-spin');
+            }
+        }
+    }
+
+    window.onload = init;
+</script>
+
+</body>
+</html>
