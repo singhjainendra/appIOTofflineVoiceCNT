@@ -80,7 +80,7 @@ During this course, I gained strong exposure to industrial embedded systems and 
 The primary objective of this project was to design and implement a low-cost, scalable smart home automation system with dual controllability: offline voice control and cloud-based remote access[cusing MIT app inventer ]. The system allows users to control home appliances such as lights, fans, and doors through voice commands (using Android native voice to text) and a cloud dashboard (Adafruit IO).
 </p>
 <p>
-  <a href="https://github.com/sure-trust/AROMAL-P-g2-ia/blob/261d724aedc1f238bae8a258ecb963cfd46130a8/Course%20report/PROJECT%20REPORT.pdf" target="_blank"><strong>→ View Full Project Report</strong></a>
+  <a href="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/SUREProEd_internship_report.pdf" target="_blank"><strong>→ View Full Project Report</strong></a>
 </p>
 
 
