@@ -123,7 +123,7 @@ During my internship period, I engaged in various community-focused initiatives 
 - These are just placeholder (sample) images <!-- remove this line -->
 
 <div align="center">
-<img src="https://github.com/user-attachments/assets/9cbafec1-fde4-4a0a-8e7d-8e10319bffca"
+<img src="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/CommunityServices/images/blooddon.png"
  alt="Community Service Photo 1" width="30%">
 <img src="https://github.com/user-attachments/assets/23d77b89-f205-4ed0-8e3b-09f969b0ccd7"
  alt="Community Service Photo 2" width="30%">
