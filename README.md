@@ -125,9 +125,11 @@ During my internship period, I engaged in various community-focused initiatives 
 <div align="center">
 <img src="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/CommunityServices/images/blooddon.png"
  alt="Community Service Photo 1" width="30%">
-<img src="https://github.com/user-attachments/assets/23d77b89-f205-4ed0-8e3b-09f969b0ccd7"
+<img src="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/CommunityServices/images/plant1.png"
  alt="Community Service Photo 2" width="30%">
-<img src="https://github.com/user-attachments/assets/48db4cfa-6f8d-4c07-b4a5-4b888a516990"
+<img src="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/CommunityServices/images/senio.png"
+ alt="Community Service Photo 3" width="30%">
+ <img src="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/CommunityServices/images/plant2.png"
  alt="Community Service Photo 3" width="30%">
 </div>
 
