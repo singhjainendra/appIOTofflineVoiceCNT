@@ -142,7 +142,7 @@ The internship certificate serves as an official acknowledgment of the successfu
 <!-- add your certificate image url below (inside src='')-->
 
 <p align="center">
-<img src="https://github.com/Lord-Rahul/Practice-Programs/blob/main/react/1/public/Gemini_Generated_Image_a6w8rda6w8rda6w8.png?raw=true" alt="Internship Certificate" width="80%">
+<img src="https://github.com/singhjainendra/appIOTofflineVoiceCNT/blob/main/CommunityServices/images/Mr._Jainendra_Singh_certificate.png?raw=true">
 </p>
 
 ---
